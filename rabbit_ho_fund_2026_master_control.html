@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbit Ho Fund 2026 | 1000W FIRE Master Control</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#050811',
+                            900: '#0b0f19',
+                            800: '#111827',
+                            700: '#1f2937',
+                            600: '#374151'
+                        },
+                        brand: {
+                            gold: '#fbbf24',
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            indigo: '#6366f1',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050811;
+            color: #f3f4f6;
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        }
+        .glow-amber {
+            box-shadow: 0 0 25px -5px rgba(251, 191, 36, 0.25);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050811;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12 antialiased selection:bg-brand-cyan selection:text-navy-900">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- Top Executive Banner -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 bg-navy-900/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-navy-900 shadow-lg shadow-emerald-500/20">
+                        <i data-lucide="plane-takeoff" class="w-6 h-6 stroke-[2.5]"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h1 class="text-lg font-bold tracking-tight text-white">RABBIT HO FUND 2026</h1>
+                            <span class="px-2 py-0.5 text-xs font-semibold uppercase tracking-wide bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">CFO Active</span>
+                        </div>
+                        <p class="text-xs text-slate-400 flex items-center gap-1.5 flex-wrap">
+                            <span>Captain Vivaldi (A320)</span>
+                            <span class="text-slate-600">•</span>
+                            <span class="text-amber-400 font-medium">ESFP-A System</span>
+                            <span class="text-slate-600">•</span>
+                            <span class="text-cyan-400">Target: Age 45 (2032)</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Action / Status Indicator -->
+            <div class="flex items-center space-x-3 text-xs w-full md:w-auto justify-end">
+                <button onclick="openStockModal()" class="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-navy-950 font-bold px-3 py-1.5 rounded-lg shadow-lg shadow-emerald-500/20 transition-all">
+                    <i data-lucide="plus" class="w-4 h-4 stroke-[3]"></i>
+                    <span>+ Add Stock / Asset</span>
+                </button>
+                <div class="hidden sm:flex items-center space-x-2 bg-navy-800/80 px-3 py-1.5 rounded-lg border border-slate-800">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-slate-300">VOO Engine: <strong class="text-white">Active ($37.97k/mo)</strong></span>
+                </div>
+                <div class="bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg text-amber-300 font-medium">
+                    1000W Target: HKD $10M
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+
+        <!-- Executive KPI Overview Bar -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            
+            <!-- Net Worth Card -->
+            <div class="glass-panel p-4 rounded-2xl relative overflow-hidden group hover:border-emerald-500/40 transition-all duration-300">
+                <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity text-emerald-400">
+                    <i data-lucide="wallet" class="w-24 h-24"></i>
+                </div>
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Net Worth</p>
+                <div class="mt-1 flex items-baseline">
+                    <span class="text-2xl font-extrabold text-white tracking-tight" id="kpi-net-worth">HKD $0</span>
+                </div>
+                <p class="text-[11px] text-emerald-400 mt-2 flex items-center gap-1">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+                    <span id="kpi-net-worth-sub">Calculated Real-Time</span>
+                </p>
+            </div>
+
+            <!-- FIRE Progress Card -->
+            <div class="glass-panel p-4 rounded-2xl relative overflow-hidden group hover:border-cyan-500/40 transition-all duration-300 sm:col-span-1 lg:col-span-2">
+                <div class="flex items-center justify-between">
+                    <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">1000W FIRE Progress</p>
+                    <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20" id="kpi-fire-pct">0.00%</span>
+                </div>
+                <div class="mt-2">
+                    <div class="flex justify-between text-xs text-slate-300 font-semibold mb-1">
+                        <span>Current: <strong id="kpi-fire-curr">$0M</strong></span>
+                        <span>Target: $10.000M</span>
+                    </div>
+                    <div class="w-full bg-navy-950 rounded-full h-3 overflow-hidden p-0.5 border border-slate-700/50">
+                        <div id="kpi-fire-bar" class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="mt-2 flex justify-between text-[11px] text-slate-400">
+                    <span>Target Date: <strong class="text-white">July 2032 (Age 45)</strong></span>
+                    <span>Remaining: <strong class="text-cyan-300">68 Months</strong></span>
+                </div>
+            </div>
+
+            <!-- Household Income -->
+            <div class="glass-panel p-4 rounded-2xl relative overflow-hidden hover:border-indigo-500/40 transition-all duration-300">
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Household Income</p>
+                <div class="mt-1">
+                    <span class="text-xl font-bold text-white">HKD $140,000</span>
+                    <span class="text-xs text-slate-400">/mo</span>
+                </div>
+                <div class="mt-2 text-[11px] text-slate-400 space-y-0.5">
+                    <div class="flex justify-between"><span>Captain Net:</span><span class="text-slate-200 font-medium">$90,000</span></div>
+                    <div class="flex justify-between"><span>Spouse (IWC):</span><span class="text-slate-200 font-medium">$50,000</span></div>
+                </div>
+            </div>
+
+            <!-- Baseline Expenses -->
+            <div class="glass-panel p-4 rounded-2xl relative overflow-hidden hover:border-rose-500/40 transition-all duration-300">
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Baseline Expenses</p>
+                <div class="mt-1">
+                    <span class="text-xl font-bold text-rose-400">HKD $59,000</span>
+                    <span class="text-xs text-slate-400">/mo</span>
+                </div>
+                <div class="mt-2 text-[11px] text-slate-400 space-y-0.5">
+                    <div class="flex justify-between"><span>Rent & Utilities:</span><span>$21k</span></div>
+                    <div class="flex justify-between"><span>Father + Allowance:</span><span>$38k</span></div>
+                </div>
+            </div>
+
+            <!-- VOO Monthly DCA Engine -->
+            <div class="glass-panel p-4 rounded-2xl relative overflow-hidden border border-emerald-500/30 bg-gradient-to-br from-navy-800 to-emerald-950/20 glow-emerald">
+                <p class="text-xs font-medium text-emerald-400 uppercase tracking-wider flex items-center justify-between">
+                    <span>Monthly VOO DCA</span>
+                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                </p>
+                <div class="mt-1">
+                    <span class="text-xl font-extrabold text-white" id="kpi-dca-amount">HKD $37,970</span>
+                </div>
+                <p class="text-[11px] text-slate-300 mt-2">
+                    Active ($29.5k) + Passive (<span id="kpi-passive-yield">$8.47k</span>)
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Main Navigation Tabs -->
+        <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+            <nav class="flex space-x-2 sm:space-x-4" aria-label="Tabs">
+                <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    <i data-lucide="target" class="w-4 h-4"></i>
+                    <span>1000W Dashboard</span>
+                </button>
+                <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-400 hover:text-white hover:bg-navy-800">
+                    <i data-lucide="table" class="w-4 h-4"></i>
+                    <span>Portfolio & Live Stocks</span>
+                </button>
+                <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-400 hover:text-white hover:bg-navy-800">
+                    <i data-lucide="git-merge" class="w-4 h-4"></i>
+                    <span>Cash Flow Waterfall</span>
+                </button>
+                <button id="tab-btn-4" onclick="switchTab(4)" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-400 hover:text-white hover:bg-navy-800">
+                    <i data-lucide="sliders" class="w-4 h-4"></i>
+                    <span>FIRE Simulator & Backup</span>
+                </button>
+            </nav>
+            <div class="text-xs text-slate-400 hidden md:block">
+                Auto-saved: <span class="text-emerald-400 font-mono" id="last-saved-time">Just Now</span>
+            </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 1: 1000W FIRE DASHBOARD -->
+        <!-- ========================================================================= -->
+        <div id="tab-content-1" class="tab-content space-y-6">
+            
+            <!-- Grid: Allocation & Options Covered Call Engine -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Asset Allocation Donut Card (7 cols) -->
+                <div class="lg:col-span-7 glass-panel p-5 rounded-2xl flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i>
+                                Core-Satellite Asset Allocation
+                            </h3>
+                            <p class="text-xs text-slate-400">Real-Time Holdings Ratio & Concentration Risk</p>
+                        </div>
+                        <span id="concentration-badge" class="text-xs font-mono bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+                            2638.HK Dilution Safe (&lt;35%)
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                        <!-- Donut Canvas -->
+                        <div class="md:col-span-6 relative flex items-center justify-center h-56">
+                            <canvas id="allocationChart"></canvas>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                <span class="text-xs text-slate-400">Total Portfolio</span>
+                                <span class="text-sm font-extrabold text-white" id="donut-center-total">$0.00M</span>
+                            </div>
+                        </div>
+
+                        <!-- Legend Details -->
+                        <div class="md:col-span-6 space-y-2 text-xs">
+                            <div class="p-2 rounded-lg bg-navy-800/60 border border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                    <span class="text-slate-300 font-medium">HK Dividend Castle</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-bold" id="alloc-val-castle">$0</div>
+                                    <div class="text-[10px] text-slate-400" id="alloc-pct-castle">0%</div>
+                                </div>
+                            </div>
+
+                            <div class="p-2 rounded-lg bg-navy-800/60 border border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+                                    <span class="text-slate-300 font-medium">Allianz Fund (Cap $500k)</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-bold" id="alloc-val-allianz">$0</div>
+                                    <div class="text-[10px] text-slate-400" id="alloc-pct-allianz">0%</div>
+                                </div>
+                            </div>
+
+                            <div class="p-2 rounded-lg bg-navy-800/60 border border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                                    <span class="text-slate-300 font-medium">VOO Growth Engine</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-bold" id="alloc-val-voo">$0</div>
+                                    <div class="text-[10px] text-emerald-400 font-medium" id="alloc-pct-voo">0%</div>
+                                </div>
+                            </div>
+
+                            <div class="p-2 rounded-lg bg-navy-800/60 border border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                    <span class="text-slate-300 font-medium">Physical Gold Reserve</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-bold" id="alloc-val-gold">$0</div>
+                                    <div class="text-[10px] text-amber-300" id="alloc-pct-gold">0%</div>
+                                </div>
+                            </div>
+
+                            <div class="p-2 rounded-lg bg-navy-800/60 border border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+                                    <span class="text-slate-300 font-medium">Cash & CDs Buffer</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-bold" id="alloc-val-defense">$0</div>
+                                    <div class="text-[10px] text-slate-400" id="alloc-pct-defense">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VOO Covered Call Tracker & Gold Seed Status (5 cols) -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <!-- Covered Call Card -->
+                    <div class="glass-panel p-5 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-navy-800 via-navy-900 to-indigo-950/30">
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">Yield Enhancement</span>
+                                <h3 class="text-base font-bold text-white mt-1">VOO Covered Call Tracker</h3>
+                            </div>
+                            <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center border border-indigo-500/30">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-navy-900/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-xs text-slate-400">VOO Shares Progress:</span>
+                                <span class="text-sm font-extrabold text-indigo-300"><span id="voo-shares-count">8</span> / 100 Shares</span>
+                            </div>
+                            <div class="w-full bg-navy-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
+                                <div id="voo-progress-bar" class="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full rounded-full transition-all duration-500" style="width: 8%"></div>
+                            </div>
+                            <div class="flex justify-between text-[11px] text-slate-400">
+                                <span>Est. Unlock: <strong class="text-white">Sept 2027</strong></span>
+                                <span>Strategy: <strong class="text-emerald-400">Sell 0.20 Delta OTM Call</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Covered Call Yield Calculator -->
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-xs space-y-2">
+                            <div class="flex justify-between text-slate-300">
+                                <span>Projected Covered Call Yield Boost:</span>
+                                <span class="text-emerald-400 font-bold">+1.5% to +2.0%</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400 text-[11px]">
+                                <span>Est. Extra Annual Cash Flow:</span>
+                                <span class="text-white font-mono font-semibold" id="cc-extra-cash">+HKD $15,800 - $21,000 / yr</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gold Capital Reallocation Card -->
+                    <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-navy-800 to-amber-950/20">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="coins" class="w-5 h-5 text-amber-400"></i>
+                                <h4 class="text-sm font-bold text-white">Gold Asset Restructuring</h4>
+                            </div>
+                            <span class="text-[10px] text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 font-mono">Executing Dec 2026</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Shift <strong class="text-amber-300">HKD $250,000</strong> physical gold into VOO Growth Seed capital while retaining <strong class="text-white">HKD $130,000</strong> gold for zero-counterparty defense.
+                        </p>
+                        <div class="mt-3 flex items-center justify-between text-[11px] bg-navy-900/60 p-2 rounded-lg border border-slate-800">
+                            <span class="text-slate-400">Projected VOO Terminal Value (+2032):</span>
+                            <span class="text-emerald-400 font-bold font-mono">+HKD $440,000 Value</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Compound Growth Runway Chart (2026 - 2032) -->
+            <div class="glass-panel p-6 rounded-2xl space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i data-lucide="line-chart" class="w-5 h-5 text-cyan-400"></i>
+                            2026–2032 FIRE Runway Projection Model
+                        </h3>
+                        <p class="text-xs text-slate-400">Compounding HKD $37,970.82/mo DCA + HKD $220k Annual Captain Bonus Sweeps</p>
+                    </div>
+
+                    <div class="flex items-center space-x-3 text-xs">
+                        <div class="flex items-center space-x-2 bg-navy-800 px-3 py-1.5 rounded-xl border border-slate-700">
+                            <span class="text-slate-400">Assumed CAGR:</span>
+                            <span class="text-emerald-400 font-bold" id="cagr-display-val">10.5%</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-navy-800 px-3 py-1.5 rounded-xl border border-slate-700">
+                            <span class="text-slate-400">Covered Call Active:</span>
+                            <span class="text-cyan-400 font-bold">2027/09+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Projection Chart -->
+                <div class="h-80 relative w-full">
+                    <canvas id="fireRunwayChart"></canvas>
+                </div>
+
+                <!-- Roadmap Milestone Indicators -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
+                    <div class="p-2.5 rounded-xl bg-navy-800/80 border border-slate-800 text-center">
+                        <div class="text-[10px] text-emerald-400 font-bold uppercase">2026/10</div>
+                        <div class="text-xs font-semibold text-white mt-0.5">VOO DCA Launch</div>
+                        <div class="text-[10px] text-slate-400">$37.9k / mo</div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-navy-800/80 border border-slate-800 text-center">
+                        <div class="text-[10px] text-indigo-400 font-bold uppercase">2026/11</div>
+                        <div class="text-xs font-semibold text-white mt-0.5">Allianz $500k Cap</div>
+                        <div class="text-[10px] text-slate-400">Phase 1 Done</div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-navy-800/80 border border-slate-800 text-center">
+                        <div class="text-[10px] text-amber-400 font-bold uppercase">2026/12</div>
+                        <div class="text-xs font-semibold text-white mt-0.5">Gold Shift + Bonus</div>
+                        <div class="text-[10px] text-slate-400">+$450k Seed</div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-navy-800/80 border border-slate-800 text-center">
+                        <div class="text-[10px] text-cyan-400 font-bold uppercase">2027/09</div>
+                        <div class="text-xs font-semibold text-white mt-0.5">100 VOO Shares</div>
+                        <div class="text-[10px] text-slate-400">Covered Call On</div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-navy-800/80 border border-slate-800 text-center">
+                        <div class="text-[10px] text-purple-400 font-bold uppercase">2029/06</div>
+                        <div class="text-xs font-semibold text-white mt-0.5">Seniority Step-up</div>
+                        <div class="text-[10px] text-slate-400">$42k / mo DCA</div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-center glow-emerald">
+                        <div class="text-[10px] text-emerald-300 font-bold uppercase">2032/07 (Age 45)</div>
+                        <div class="text-xs font-extrabold text-white mt-0.5">1000W FIRE PEAK</div>
+                        <div class="text-[10px] text-emerald-300 font-bold">HKD $10.0M Net</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 2: PORTFOLIO & LIVE STOCKS -->
+        <!-- ========================================================================= -->
+        <div id="tab-content-2" class="tab-content hidden space-y-6">
+            
+            <div class="glass-panel p-6 rounded-2xl space-y-4">
+                
+                <!-- Table Controls & Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i data-lucide="database" class="w-5 h-5 text-cyan-400"></i>
+                            Portfolio & Live Stock Ledger
+                        </h3>
+                        <p class="text-xs text-slate-400">Real-time valuation, cost basis tracking, and category filtering</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- Sync Market Quotes Button -->
+                        <button onclick="syncStockQuotes()" class="flex items-center space-x-1.5 bg-navy-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-200 px-3 py-1.5 rounded-xl transition-all">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-cyan-400" id="sync-icon"></i>
+                            <span>Sync Quotes</span>
+                        </button>
+
+                        <!-- Add Stock Button -->
+                        <button onclick="openStockModal()" class="flex items-center space-x-1.5 bg-emerald-500 hover:bg-emerald-400 text-navy-950 font-bold text-xs px-3 py-1.5 rounded-xl transition-all shadow-md shadow-emerald-500/20">
+                            <i data-lucide="plus" class="w-3.5 h-3.5 stroke-[3]"></i>
+                            <span>+ Add Position</span>
+                        </button>
+
+                        <!-- Category Filter Buttons -->
+                        <div class="flex bg-navy-900 p-1 rounded-xl border border-slate-800 text-xs">
+                            <button onclick="filterPortfolio('all')" id="filter-btn-all" class="filter-btn px-3 py-1.5 rounded-lg font-medium text-white bg-slate-800">All</button>
+                            <button onclick="filterPortfolio('castle')" id="filter-btn-castle" class="filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">Castle</button>
+                            <button onclick="filterPortfolio('growth')" id="filter-btn-growth" class="filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">Growth</button>
+                            <button onclick="filterPortfolio('defense')" id="filter-btn-defense" class="filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">Defense</button>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="relative">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                            <input type="text" id="portfolio-search" onkeyup="searchPortfolio()" placeholder="Search Ticker..." class="bg-navy-900 border border-slate-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors w-40">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Asset Master Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-400 font-semibold bg-navy-900/50 uppercase tracking-wider">
+                                <th class="p-3">Ticker / Symbol</th>
+                                <th class="p-3">Asset Name</th>
+                                <th class="p-3">Category</th>
+                                <th class="p-3 text-right">Shares / Units</th>
+                                <th class="p-3 text-right">Avg Price (HKD)</th>
+                                <th class="p-3 text-right">Current Price (HKD)</th>
+                                <th class="p-3 text-right">Total Market Value</th>
+                                <th class="p-3 text-right">Unrealized P&L</th>
+                                <th class="p-3 text-right">Annual Div (HKD)</th>
+                                <th class="p-3 text-right">Weight %</th>
+                                <th class="p-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="portfolio-table-body" class="divide-y divide-slate-800/60 font-mono">
+                            <!-- Dynamic Rows Injected by JS -->
+                        </tbody>
+                        <tfoot class="bg-navy-900/80 font-bold border-t-2 border-slate-700">
+                            <tr>
+                                <td colspan="6" class="p-3.5 text-slate-300 font-sans text-sm">Total Portfolio Asset Valuation:</td>
+                                <td class="p-3.5 text-right text-emerald-400 text-sm" id="table-total-value">HKD $0.00</td>
+                                <td class="p-3.5 text-right text-slate-400 text-xs" id="table-total-pl">$0.00</td>
+                                <td class="p-3.5 text-right text-cyan-300 text-sm" id="table-total-div">HKD $0.00 / yr</td>
+                                <td class="p-3.5 text-right text-white">100.0%</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 3: CASH FLOW WATERFALL -->
+        <!-- ========================================================================= -->
+        <div id="tab-content-3" class="tab-content hidden space-y-6">
+            
+            <div class="glass-panel p-6 rounded-2xl space-y-6">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="git-merge" class="w-5 h-5 text-emerald-400"></i>
+                        Monthly Cash Flow Waterfall Architecture
+                    </h3>
+                    <p class="text-xs text-slate-400">Strictly separates Consumption Expenses from Automated Investment DCA</p>
+                </div>
+
+                <!-- Visual Waterfall Steps -->
+                <div class="space-y-3 font-sans text-xs">
+                    
+                    <!-- Step 1: Gross Income -->
+                    <div class="p-3.5 rounded-xl bg-navy-800 border border-slate-700 flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">1</div>
+                            <div>
+                                <div class="font-bold text-white">Household Gross Monthly Income</div>
+                                <div class="text-[11px] text-slate-400">Captain Net Salary ($90k) + Spouse IWC ($50k)</div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-extrabold text-emerald-400">+HKD $140,000.00</span>
+                    </div>
+
+                    <!-- Step 2: Baseline Expenses -->
+                    <div class="p-3.5 rounded-xl bg-navy-800/80 border border-slate-800 flex justify-between items-center ml-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">2</div>
+                            <div>
+                                <div class="font-bold text-white">Less Baseline Expenses (Locked)</div>
+                                <div class="text-[11px] text-slate-400">Rent $21k + Father $7k + Cards & Allowances $31k</div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-extrabold text-rose-400">-HKD $59,000.00</span>
+                    </div>
+
+                    <!-- Step 3: Active Surplus -->
+                    <div class="p-3 rounded-xl bg-navy-900 border border-cyan-500/30 flex justify-between items-center ml-8">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="arrow-right-circle" class="w-4 h-4 text-cyan-400"></i>
+                            <span class="font-semibold text-slate-200">Active Monthly Net Surplus</span>
+                        </div>
+                        <span class="text-sm font-bold text-cyan-300">HKD $81,000.00</span>
+                    </div>
+
+                    <!-- Step 4: Passive Income Injection -->
+                    <div class="p-3.5 rounded-xl bg-navy-800/80 border border-slate-800 flex justify-between items-center ml-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">3</div>
+                            <div>
+                                <div class="font-bold text-white">Plus Pure Passive Cash Flow Yield</div>
+                                <div class="text-[11px] text-slate-400" id="wf-passive-desc">HK Equities + Allianz Fund Yield</div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-extrabold text-indigo-400" id="wf-passive-amt">+HKD $8,470.82</span>
+                    </div>
+
+                    <!-- Step 5: Automated VOO DCA -->
+                    <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 flex justify-between items-center ml-12 glow-emerald">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500 text-navy-900 flex items-center justify-center font-bold">4</div>
+                            <div>
+                                <div class="font-bold text-white">Less Automated VOO Mechanical DCA</div>
+                                <div class="text-[11px] text-emerald-300">Active Surplus ($29.5k) + Passive Yield ($8.47k)</div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-extrabold text-emerald-400" id="wf-dca-display">-HKD $37,970.82</span>
+                    </div>
+
+                    <!-- Step 6: Guilt-Free Lifestyle Zone -->
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-amber-500/20 via-navy-800 to-navy-900 border border-amber-500/40 flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-xl bg-amber-400 text-navy-900 flex items-center justify-center font-extrabold">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-extrabold text-amber-300 text-sm">Guilt-Free Lifestyle Spending Zone</div>
+                                <div class="text-[11px] text-slate-300">Tennis, Padel, Fine Dining, Gaming, Family Travel</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-base font-extrabold text-amber-300" id="wf-free-spending">HKD $51,500.00 / mo</span>
+                            <div class="text-[10px] text-emerald-400 font-semibold">100% Cleared for Spending</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 4: FIRE SIMULATOR & BACKUP -->
+        <!-- ========================================================================= -->
+        <div id="tab-content-4" class="tab-content hidden space-y-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Simulator Sliders (7 cols) -->
+                <div class="lg:col-span-7 glass-panel p-6 rounded-2xl space-y-5">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i data-lucide="sliders" class="w-5 h-5 text-amber-400"></i>
+                            FIRE Scenario Interactive Simulator
+                        </h3>
+                        <p class="text-xs text-slate-400">Adjust DCA inputs to project your exact July 2032 FIRE outcome</p>
+                    </div>
+
+                    <div class="space-y-5 text-xs">
+                        
+                        <!-- Slider 1: Monthly VOO DCA -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between">
+                                <label for="sim-dca" class="text-slate-300 font-medium">Monthly VOO DCA Engine:</label>
+                                <span class="text-emerald-400 font-bold font-mono text-sm" id="sim-dca-val">HKD $37,970</span>
+                            </div>
+                            <input type="range" id="sim-dca" min="20000" max="60000" step="1000" value="37970" oninput="updateSimulator()" class="w-full accent-emerald-400 bg-navy-900 rounded-lg cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>$20k/mo</span>
+                                <span>Baseline: $37.97k</span>
+                                <span>$60k/mo</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 2: VOO Expected CAGR -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between">
+                                <label for="sim-cagr" class="text-slate-300 font-medium">Assumed VOO Market Return (CAGR):</label>
+                                <span class="text-cyan-400 font-bold font-mono text-sm" id="sim-cagr-val">10.5%</span>
+                            </div>
+                            <input type="range" id="sim-cagr" min="8.0" max="14.0" step="0.5" value="10.5" oninput="updateSimulator()" class="w-full accent-cyan-400 bg-navy-900 rounded-lg cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>8.0% (Bear)</span>
+                                <span>10.5% (Base)</span>
+                                <span>14.0% (Bull)</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 3: Annual Captain Bonus Sweep -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between">
+                                <label for="sim-bonus" class="text-slate-300 font-medium">Annual Captain Bonus Injected:</label>
+                                <span class="text-indigo-400 font-bold font-mono text-sm" id="sim-bonus-val">HKD $220,000</span>
+                            </div>
+                            <input type="range" id="sim-bonus" min="0" max="400000" step="25000" value="220000" oninput="updateSimulator()" class="w-full accent-indigo-400 bg-navy-900 rounded-lg cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>$0 / yr</span>
+                                <span>Target: $220k</span>
+                                <span>$400k / yr</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Calculated Results Box -->
+                    <div class="p-4 rounded-xl bg-navy-900 border border-slate-800 space-y-3">
+                        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Simulated 2032 Peak Result</div>
+                        
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-xs text-slate-300">Projected Net Worth (July 2032):</span>
+                            <span class="text-xl font-extrabold text-emerald-400" id="sim-result-networth">HKD $10,480,250</span>
+                        </div>
+
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-400">1000W Target Status:</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" id="sim-result-status">GOAL ACHIEVED (+4.8%)</span>
+                        </div>
+
+                        <div class="flex justify-between items-center text-xs pt-2 border-t border-slate-800">
+                            <span class="text-slate-400">Est. Passive Income at Age 45:</span>
+                            <span class="text-amber-300 font-bold font-mono text-sm" id="sim-result-passive">HKD $48,500 / mo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backup & Local Storage Settings (5 cols) -->
+                <div class="lg:col-span-5 glass-panel p-6 rounded-2xl space-y-4">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i data-lucide="hard-drive" class="w-5 h-5 text-cyan-400"></i>
+                            Data Persistence & Backup
+                        </h3>
+                        <p class="text-xs text-slate-400">Export or import your portfolio dataset locally</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <button onclick="exportJSON()" class="w-full flex items-center justify-center space-x-2 bg-navy-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all">
+                            <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i>
+                            <span>Export Portfolio Backup (.JSON)</span>
+                        </button>
+
+                        <label class="w-full flex items-center justify-center space-x-2 bg-navy-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all cursor-pointer">
+                            <i data-lucide="upload" class="w-4 h-4 text-cyan-400"></i>
+                            <span>Import JSON Backup File</span>
+                            <input type="file" id="import-json-file" accept=".json" onchange="importJSON(event)" class="hidden">
+                        </label>
+
+                        <button onclick="resetDefaultData()" class="w-full flex items-center justify-center space-x-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4 text-rose-400"></i>
+                            <span>Reset to CFO Baseline Default</span>
+                        </button>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 inline mr-1"></i>
+                        Privacy Guarantee: All your financial data is stored locally inside your web browser (`localStorage`). No private credentials are sent to external servers.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- ADD / EDIT STOCK MODAL -->
+    <!-- ========================================================================= -->
+    <div id="stock-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
+        <div class="glass-panel p-6 rounded-2xl max-w-lg w-full mx-4 border border-slate-700 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2" id="modal-title">
+                    <i data-lucide="plus-circle" class="w-5 h-5 text-emerald-400"></i>
+                    Add New Stock / Asset Position
+                </h3>
+                <button onclick="closeStockModal()" class="text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="stock-form" onsubmit="saveStockForm(event)" class="space-y-3 text-xs">
+                <input type="hidden" id="form-edit-id" value="">
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-300 mb-1">Ticker / Symbol *</label>
+                        <input type="text" id="form-ticker" placeholder="e.g. 2638.HK, VOO" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1">Asset Name *</label>
+                        <input type="text" id="form-name" placeholder="e.g. HK Electric" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-cyan-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-300 mb-1">Category *</label>
+                        <select id="form-category" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-cyan-500 focus:outline-none">
+                            <option value="castle">Castle (HK Dividends / Allianz)</option>
+                            <option value="growth">Growth Engine (VOO / US)</option>
+                            <option value="defense">Defense (Cash / CDs / Gold)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1">Quantity / Shares *</label>
+                        <input type="number" step="any" id="form-shares" placeholder="79000" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-cyan-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-300 mb-1">Avg Buy Price (HKD) *</label>
+                        <input type="number" step="any" id="form-avg-price" placeholder="5.12" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1">Current Price (HKD) *</label>
+                        <input type="number" step="any" id="form-curr-price" placeholder="5.35" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-cyan-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-300 mb-1">Yield Pct (%)</label>
+                        <input type="number" step="any" id="form-yield-pct" placeholder="6.05" class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1">Annual Dividend Total (HKD)</label>
+                        <input type="number" step="any" id="form-div-annual" placeholder="25585" class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:border-cyan-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-2 border-t border-slate-800">
+                    <button type="button" onclick="closeStockModal()" class="px-4 py-2 bg-navy-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium transition-all">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-navy-950 font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all">Save Position</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Default Baseline Dataset
+        const DEFAULT_PORTFOLIO = [
+            { id: 1, ticker: '2638.HK', name: 'HK Electric Investments', category: 'castle', shares: 79000, avgPrice: 5.12, currentPrice: 5.35, yieldPct: 6.05, divAnnual: 25585.50 },
+            { id: 2, ticker: '1883.HK', name: 'CITIC Telecom International', category: 'castle', shares: 77000, avgPrice: 2.85, currentPrice: 2.92, yieldPct: 8.22, divAnnual: 18480.00 },
+            { id: 3, ticker: '0003.HK', name: 'HK & China Gas (Towngas)', category: 'castle', shares: 24000, avgPrice: 6.20, currentPrice: 6.45, yieldPct: 5.43, divAnnual: 8400.00 },
+            { id: 4, ticker: '0002.HK', name: 'CLP Holdings', category: 'castle', shares: 2000, avgPrice: 62.50, currentPrice: 66.80, yieldPct: 4.64, divAnnual: 6200.00 },
+            { id: 5, ticker: '0087.HK', name: 'Swire Pacific B', category: 'castle', shares: 5000, avgPrice: 9.80, currentPrice: 10.40, yieldPct: 3.25, divAnnual: 1688.50 },
+            { id: 6, ticker: 'ALLIANZ.AM', name: 'Allianz Income & Growth AM', category: 'castle', shares: 4725.75, avgPrice: 100.00, currentPrice: 100.00, yieldPct: 8.74, divAnnual: 41295.80 },
+            { id: 7, ticker: 'VOO', name: 'Vanguard S&P 500 ETF', category: 'growth', shares: 8, avgPrice: 5120.00, currentPrice: 5276.25, yieldPct: 1.35, divAnnual: 570.00 },
+            { id: 8, ticker: 'GOLD.PHYS', name: 'Physical Gold Bars (Keep)', category: 'defense', shares: 1, avgPrice: 130000, currentPrice: 130000, yieldPct: 0.00, divAnnual: 0.00 },
+            { id: 9, ticker: 'CASH.MOP', name: 'Liquid Cash Buffer (MOP/HKD)', category: 'defense', shares: 1, avgPrice: 200000, currentPrice: 200000, yieldPct: 1.50, divAnnual: 3000.00 },
+            { id: 10, ticker: 'CASH.CD', name: 'Term Fixed Deposit (CD)', category: 'defense', shares: 1, avgPrice: 150000, currentPrice: 150000, yieldPct: 3.60, divAnnual: 5400.00 }
+        ];
+
+        let portfolioData = [];
+        let allocationChartInstance = null;
+        let runwayChartInstance = null;
+        let currentFilter = 'all';
+
+        // ==========================================
+        // LOCAL STORAGE & DATA LOADING
+        // ==========================================
+        function loadPortfolioData() {
+            const saved = localStorage.getItem('rabbit_ho_portfolio_v2');
+            if (saved) {
+                try {
+                    portfolioData = JSON.parse(saved);
+                } catch (e) {
+                    portfolioData = [...DEFAULT_PORTFOLIO];
+                }
+            } else {
+                portfolioData = [...DEFAULT_PORTFOLIO];
+            }
+        }
+
+        function savePortfolioData() {
+            localStorage.setItem('rabbit_ho_portfolio_v2', JSON.stringify(portfolioData));
+            const now = new Date();
+            document.getElementById('last-saved-time').innerText = now.toLocaleTimeString();
+        }
+
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        window.onload = function() {
+            loadPortfolioData();
+            lucide.createIcons();
+            recalculateMaster();
+            initAllocationChart();
+            initRunwayChart();
+            updateSimulator();
+        };
+
+        // ==========================================
+        // MASTER RECALCULATION ENGINE
+        // ==========================================
+        function recalculateMaster() {
+            let grandTotal = 0;
+            let totalDiv = 0;
+            let totalCost = 0;
+
+            portfolioData.forEach(item => {
+                const val = item.shares * item.currentPrice;
+                const cost = item.shares * item.avgPrice;
+                grandTotal += val;
+                totalCost += cost;
+                totalDiv += (item.divAnnual || 0);
+            });
+
+            // Update KPI Cards
+            document.getElementById('kpi-net-worth').innerText = `HKD $${Math.round(grandTotal).toLocaleString()}`;
+            const firePct = Math.min(100, (grandTotal / 10000000) * 100).toFixed(2);
+            document.getElementById('kpi-fire-pct').innerText = `${firePct}%`;
+            document.getElementById('kpi-fire-bar').style.width = `${firePct}%`;
+            document.getElementById('kpi-fire-curr').innerText = `$${(grandTotal / 1000000).toFixed(3)}M`;
+
+            const passiveMo = Math.round(totalDiv / 12);
+            document.getElementById('kpi-passive-yield').innerText = `$${(passiveMo / 1000).toFixed(2)}k`;
+
+            // Dynamic VOO DCA Engine Calculation ($29.5k active surplus + passive yield)
+            const dcaEngine = 29500 + passiveMo;
+            document.getElementById('kpi-dca-amount').innerText = `HKD $${dcaEngine.toLocaleString()}`;
+
+            // Check 2638.HK Concentration Alert
+            const hkElec = portfolioData.find(i => i.ticker === '2638.HK');
+            const badge = document.getElementById('concentration-badge');
+            if (hkElec && grandTotal > 0) {
+                const hkElecVal = hkElec.shares * hkElec.currentPrice;
+                const hkPct = ((hkElecVal / grandTotal) * 100).toFixed(1);
+                if (hkPct > 35) {
+                    badge.innerText = `⚠️ 2638.HK Concentration High (${hkPct}%)`;
+                    badge.className = 'text-xs font-mono bg-rose-500/10 text-rose-400 px-2.5 py-1 rounded-lg border border-rose-500/20';
+                } else {
+                    badge.innerText = `2638.HK Dilution Safe (${hkPct}%)`;
+                    badge.className = 'text-xs font-mono bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-lg border border-emerald-500/20';
+                }
+            }
+
+            // Update Covered Call Share Tracker
+            const vooItem = portfolioData.find(i => i.ticker === 'VOO');
+            const vooShares = vooItem ? vooItem.shares : 0;
+            document.getElementById('voo-shares-count').innerText = vooShares;
+            document.getElementById('voo-progress-bar').style.width = `${Math.min(100, vooShares)}%`;
+
+            // Render Table
+            renderPortfolioTable(currentFilter);
+
+            // Update Charts
+            updateAllocationChart();
+        }
+
+        // ==========================================
+        // TAB NAVIGATION
+        // ==========================================
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-400 hover:text-white hover:bg-navy-800';
+            });
+
+            const selectedContent = document.getElementById(`tab-content-${tabIndex}`);
+            const selectedBtn = document.getElementById(`tab-btn-${tabIndex}`);
+
+            if (selectedContent && selectedBtn) {
+                selectedContent.classList.remove('hidden');
+                selectedBtn.className = 'tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+            }
+
+            if (tabIndex === 1) {
+                if (allocationChartInstance) allocationChartInstance.resize();
+                if (runwayChartInstance) runwayChartInstance.resize();
+            }
+        }
+
+        // ==========================================
+        // PORTFOLIO TABLE RENDER & CRUD
+        // ==========================================
+        function renderPortfolioTable(filterCategory = 'all', searchQuery = '') {
+            currentFilter = filterCategory;
+            const tbody = document.getElementById('portfolio-table-body');
+            tbody.innerHTML = '';
+
+            const grandTotal = portfolioData.reduce((acc, item) => acc + (item.shares * item.currentPrice), 0);
+            let totalValue = 0;
+            let totalCost = 0;
+            let totalDividend = 0;
+
+            const filtered = portfolioData.filter(item => {
+                const matchesCat = (filterCategory === 'all' || item.category === filterCategory);
+                const matchesSearch = item.ticker.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.name.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            filtered.forEach(item => {
+                const marketVal = item.shares * item.currentPrice;
+                const costBasis = item.shares * item.avgPrice;
+                const pl = marketVal - costBasis;
+                totalValue += marketVal;
+                totalCost += costBasis;
+                totalDividend += (item.divAnnual || 0);
+
+                const allocPct = grandTotal > 0 ? ((marketVal / grandTotal) * 100).toFixed(1) : '0.0';
+
+                let catBadge = '';
+                if (item.category === 'castle') catBadge = '<span class="px-2 py-0.5 rounded text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 font-sans">Castle</span>';
+                else if (item.category === 'growth') catBadge = '<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-sans">Growth</span>';
+                else if (item.category === 'defense') catBadge = '<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-sans">Defense</span>';
+
+                const plClass = pl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+                const plSign = pl >= 0 ? '+' : '';
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-navy-800/40 transition-colors text-slate-200';
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${item.ticker}</td>
+                    <td class="p-3 font-sans font-medium text-slate-300">${item.name}</td>
+                    <td class="p-3">${catBadge}</td>
+                    <td class="p-3 text-right">${item.shares.toLocaleString()}</td>
+                    <td class="p-3 text-right text-slate-400">$${item.avgPrice.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="p-3 text-right text-white font-semibold">$${item.currentPrice.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="p-3 text-right text-emerald-400 font-bold">$${marketVal.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="p-3 text-right ${plClass}">${plSign}$${pl.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="p-3 text-right text-slate-300">$${(item.divAnnual || 0).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="p-3 text-right font-bold text-slate-400">${allocPct}%</td>
+                    <td class="p-3 text-center">
+                        <div class="flex items-center justify-center space-x-2">
+                            <button onclick="editStockModal(${item.id})" class="text-cyan-400 hover:text-cyan-300 p-1" title="Edit Position"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
+                            <button onclick="deleteStock(${item.id})" class="text-rose-400 hover:text-rose-300 p-1" title="Delete Position"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('table-total-value').innerText = `HKD $${totalValue.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            const totalPL = totalValue - totalCost;
+            const plClass = totalPL >= 0 ? 'text-emerald-400' : 'text-rose-400';
+            document.getElementById('table-total-pl').innerText = `$${totalPL.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            document.getElementById('table-total-pl').className = `p-3.5 text-right text-xs font-mono ${plClass}`;
+            document.getElementById('table-total-div').innerText = `HKD $${totalDividend.toLocaleString(undefined, {minimumFractionDigits: 2})} / yr`;
+
+            lucide.createIcons();
+        }
+
+        function filterPortfolio(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = 'filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white';
+            });
+            const activeBtn = document.getElementById(`filter-btn-${category}`);
+            if (activeBtn) activeBtn.className = 'filter-btn px-3 py-1.5 rounded-lg font-medium text-white bg-slate-800';
+            
+            const searchVal = document.getElementById('portfolio-search').value;
+            renderPortfolioTable(category, searchVal);
+        }
+
+        function searchPortfolio() {
+            const searchVal = document.getElementById('portfolio-search').value;
+            renderPortfolioTable(currentFilter, searchVal);
+        }
+
+        // ==========================================
+        // STOCK MODAL & FORM LOGIC
+        // ==========================================
+        function openStockModal() {
+            document.getElementById('modal-title').innerText = 'Add New Stock / Asset Position';
+            document.getElementById('stock-form').reset();
+            document.getElementById('form-edit-id').value = '';
+            document.getElementById('stock-modal').classList.remove('hidden');
+        }
+
+        function closeStockModal() {
+            document.getElementById('stock-modal').classList.add('hidden');
+        }
+
+        function editStockModal(id) {
+            const item = portfolioData.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-title').innerText = `Edit Position: ${item.ticker}`;
+            document.getElementById('form-edit-id').value = item.id;
+            document.getElementById('form-ticker').value = item.ticker;
+            document.getElementById('form-name').value = item.name;
+            document.getElementById('form-category').value = item.category;
+            document.getElementById('form-shares').value = item.shares;
+            document.getElementById('form-avg-price').value = item.avgPrice;
+            document.getElementById('form-curr-price').value = item.currentPrice;
+            document.getElementById('form-yield-pct').value = item.yieldPct || 0;
+            document.getElementById('form-div-annual').value = item.divAnnual || 0;
+
+            document.getElementById('stock-modal').classList.remove('hidden');
+        }
+
+        function saveStockForm(e) {
+            e.preventDefault();
+            const editId = document.getElementById('form-edit-id').value;
+            const ticker = document.getElementById('form-ticker').value.trim();
+            const name = document.getElementById('form-name').value.trim();
+            const category = document.getElementById('form-category').value;
+            const shares = parseFloat(document.getElementById('form-shares').value) || 0;
+            const avgPrice = parseFloat(document.getElementById('form-avg-price').value) || 0;
+            const currentPrice = parseFloat(document.getElementById('form-curr-price').value) || 0;
+            const yieldPct = parseFloat(document.getElementById('form-yield-pct').value) || 0;
+            const divAnnual = parseFloat(document.getElementById('form-div-annual').value) || 0;
+
+            if (editId) {
+                // Edit existing
+                const index = portfolioData.findIndex(i => i.id == editId);
+                if (index !== -1) {
+                    portfolioData[index] = { id: Number(editId), ticker, name, category, shares, avgPrice, currentPrice, yieldPct, divAnnual };
+                    showToast(`Updated position ${ticker}`);
+                }
+            } else {
+                // Add new
+                const newId = Date.now();
+                portfolioData.push({ id: newId, ticker, name, category, shares, avgPrice, currentPrice, yieldPct, divAnnual });
+                showToast(`Added new position ${ticker}`);
+            }
+
+            savePortfolioData();
+            recalculateMaster();
+            closeStockModal();
+        }
+
+        function deleteStock(id) {
+            const item = portfolioData.find(i => i.id === id);
+            if (!item) return;
+            portfolioData = portfolioData.filter(i => i.id !== id);
+            savePortfolioData();
+            recalculateMaster();
+            showToast(`Deleted position ${item.ticker}`);
+        }
+
+        // Quote Sync Simulation
+        function syncStockQuotes() {
+            const icon = document.getElementById('sync-icon');
+            icon.classList.add('animate-spin');
+            
+            setTimeout(() => {
+                portfolioData.forEach(item => {
+                    // Small mock market fluctuation +/- 0.5%
+                    const factor = 1 + (Math.random() * 0.01 - 0.005);
+                    item.currentPrice = parseFloat((item.currentPrice * factor).toFixed(2));
+                });
+                savePortfolioData();
+                recalculateMaster();
+                icon.classList.remove('animate-spin');
+                showToast('Stock market quotes synchronized!');
+            }, 800);
+        }
+
+        // ==========================================
+        // CHART LOGIC
+        // ==========================================
+        function initAllocationChart() {
+            const ctx = document.getElementById('allocationChart').getContext('2d');
+            allocationChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['HK Dividend Castle', 'Allianz Fund', 'VOO Growth Engine', 'Physical Gold', 'Cash & CDs Buffer'],
+                    datasets: [{
+                        data: [1, 1, 1, 1, 1],
+                        backgroundColor: ['#3b82f6', '#6366f1', '#10b981', '#fbbf24', '#06b6d4'],
+                        borderWidth: 2,
+                        borderColor: '#0b0f19',
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const val = context.raw || 0;
+                                    return ` HKD $${Math.round(val).toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            updateAllocationChart();
+        }
+
+        function updateAllocationChart() {
+            if (!allocationChartInstance) return;
+
+            let castleVal = 0;
+            let allianzVal = 0;
+            let vooVal = 0;
+            let goldVal = 0;
+            let defenseVal = 0;
+            let grandTotal = 0;
+
+            portfolioData.forEach(item => {
+                const val = item.shares * item.currentPrice;
+                grandTotal += val;
+
+                if (item.ticker === 'ALLIANZ.AM') allianzVal += val;
+                else if (item.ticker === 'VOO') vooVal += val;
+                else if (item.ticker.includes('GOLD')) goldVal += val;
+                else if (item.category === 'castle') castleVal += val;
+                else if (item.category === 'defense') defenseVal += val;
+                else vooVal += val;
+            });
+
+            allocationChartInstance.data.datasets[0].data = [castleVal, allianzVal, vooVal, goldVal, defenseVal];
+            allocationChartInstance.update();
+
+            document.getElementById('donut-center-total').innerText = `$${(grandTotal / 1000000).toFixed(3)}M`;
+
+            document.getElementById('alloc-val-castle').innerText = `$${Math.round(castleVal).toLocaleString()}`;
+            document.getElementById('alloc-pct-castle').innerText = grandTotal > 0 ? `${((castleVal / grandTotal) * 100).toFixed(1)}%` : '0%';
+
+            document.getElementById('alloc-val-allianz').innerText = `$${Math.round(allianzVal).toLocaleString()}`;
+            document.getElementById('alloc-pct-allianz').innerText = grandTotal > 0 ? `${((allianzVal / grandTotal) * 100).toFixed(1)}%` : '0%';
+
+            document.getElementById('alloc-val-voo').innerText = `$${Math.round(vooVal).toLocaleString()}`;
+            document.getElementById('alloc-pct-voo').innerText = grandTotal > 0 ? `${((vooVal / grandTotal) * 100).toFixed(1)}%` : '0%';
+
+            document.getElementById('alloc-val-gold').innerText = `$${Math.round(goldVal).toLocaleString()}`;
+            document.getElementById('alloc-pct-gold').innerText = grandTotal > 0 ? `${((goldVal / grandTotal) * 100).toFixed(1)}%` : '0%';
+
+            document.getElementById('alloc-val-defense').innerText = `$${Math.round(defenseVal).toLocaleString()}`;
+            document.getElementById('alloc-pct-defense').innerText = grandTotal > 0 ? `${((defenseVal / grandTotal) * 100).toFixed(1)}%` : '0%';
+        }
+
+        function initRunwayChart() {
+            const ctx = document.getElementById('fireRunwayChart').getContext('2d');
+            runwayChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2026 Oct', '2027 Jul', '2028 Jul', '2029 Jul', '2030 Jul', '2031 Jul', '2032 Jul (Peak)'],
+                    datasets: [
+                        {
+                            label: 'Projected Net Worth (HKD)',
+                            data: [2155955, 3650000, 5300000, 7100000, 8800000, 9750000, 10480000],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#10b981'
+                        },
+                        {
+                            label: '1000W FIRE Target Benchmark',
+                            data: [10000000, 10000000, 10000000, 10000000, 10000000, 10000000, 10000000],
+                            borderColor: '#fbbf24',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af', font: { size: 11 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: {
+                                color: '#9ca3af',
+                                font: { size: 11 },
+                                callback: function(val) { return '$' + (val / 1000000).toFixed(1) + 'M'; }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true, labels: { color: '#e5e7eb', font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // FIRE SIMULATOR LOGIC
+        // ==========================================
+        function updateSimulator() {
+            const dcaVal = parseFloat(document.getElementById('sim-dca').value);
+            const cagrVal = parseFloat(document.getElementById('sim-cagr').value);
+            const bonusVal = parseFloat(document.getElementById('sim-bonus').value);
+
+            document.getElementById('sim-dca-val').innerText = `HKD $${dcaVal.toLocaleString()}`;
+            document.getElementById('sim-cagr-val').innerText = `${cagrVal.toFixed(1)}%`;
+            document.getElementById('sim-bonus-val').innerText = `HKD $${bonusVal.toLocaleString()}`;
+            document.getElementById('cagr-display-val').innerText = `${cagrVal.toFixed(1)}%`;
+
+            let grandTotal = portfolioData.reduce((acc, item) => acc + (item.shares * item.currentPrice), 0);
+            let currentAsset = grandTotal > 0 ? grandTotal : 2155955;
+            const monthlyRate = Math.pow(1 + (cagrVal / 100), 1 / 12) - 1;
+            const months = 68;
+
+            let dataPoints = [Math.round(currentAsset)];
+
+            for (let m = 1; m <= months; m++) {
+                currentAsset = (currentAsset + dcaVal) * (1 + monthlyRate);
+                if (m % 12 === 0) currentAsset += bonusVal;
+                if (m % 10 === 0 || m === months) dataPoints.push(Math.round(currentAsset));
+            }
+
+            const finalNetWorth = Math.round(currentAsset);
+            document.getElementById('sim-result-networth').innerText = `HKD $${finalNetWorth.toLocaleString()}`;
+
+            const statusBadge = document.getElementById('sim-result-status');
+            if (finalNetWorth >= 10000000) {
+                const overPct = (((finalNetWorth - 10000000) / 10000000) * 100).toFixed(1);
+                statusBadge.innerText = `GOAL ACHIEVED (+${overPct}%)`;
+                statusBadge.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+            } else {
+                const shortPct = (((10000000 - finalNetWorth) / 10000000) * 100).toFixed(1);
+                statusBadge.innerText = `SHORTFALL (-${shortPct}%)`;
+                statusBadge.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+            }
+
+            const projectedPassiveMo = Math.round((finalNetWorth * 0.055) / 12);
+            document.getElementById('sim-result-passive').innerText = `HKD $${projectedPassiveMo.toLocaleString()} / mo`;
+
+            // Waterfall Updates
+            document.getElementById('wf-dca-display').innerText = `-HKD $${dcaVal.toLocaleString()}`;
+            const activeSurplus = 81000;
+            const totalDiv = portfolioData.reduce((acc, i) => acc + (i.divAnnual || 0), 0);
+            const passiveMo = totalDiv / 12;
+            document.getElementById('wf-passive-amt').innerText = `+HKD $${Math.round(passiveMo).toLocaleString()}`;
+            const guiltFree = (activeSurplus + passiveMo) - dcaVal;
+            document.getElementById('wf-free-spending').innerText = `HKD $${Math.max(0, Math.round(guiltFree)).toLocaleString()} / mo`;
+
+            if (runwayChartInstance) {
+                runwayChartInstance.data.datasets[0].data = dataPoints;
+                runwayChartInstance.update();
+            }
+        }
+
+        // ==========================================
+        // BACKUP & RESTORE
+        // ==========================================
+        function exportJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(portfolioData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `Rabbit_Ho_Fund_Backup_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast('Exported JSON backup!');
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        portfolioData = imported;
+                        savePortfolioData();
+                        recalculateMaster();
+                        updateSimulator();
+                        showToast('Successfully imported JSON portfolio data!');
+                    }
+                } catch (err) {
+                    showToast('Failed to parse JSON file!');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function resetDefaultData() {
+            portfolioData = [...DEFAULT_PORTFOLIO];
+            savePortfolioData();
+            recalculateMaster();
+            updateSimulator();
+            showToast('Reset portfolio to CFO baseline defaults!');
+        }
+
+        // ==========================================
+        // CUSTOM TOAST NOTIFICATION
+        // ==========================================
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'glass-panel px-4 py-2.5 rounded-xl text-xs font-semibold text-white border border-emerald-500/40 shadow-xl flex items-center space-x-2 animate-bounce pointer-events-auto';
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>${msg}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            setTimeout(() => {
+                toast.remove();
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
